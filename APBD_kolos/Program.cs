@@ -1,4 +1,5 @@
 using APBD_kolos.Data;
+using APBD_kolos.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +9,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString(
+        "DefaultConnection"));
 });
-//builder.Services.AddScoped<IDbService, DbService>();
+builder.Services.AddScoped<IDbService, DbService>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
